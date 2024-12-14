@@ -116,17 +116,43 @@ function update_task_status($conn, $data){
 }
 
 
-function get_all_tasks_by_id($conn, $id){
-	$sql = "SELECT * FROM tasks WHERE assigned_to=?";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([$id]);
+function get_all_tasks_by_id($conn, $user_id) {
+    // Define the SQL query with joins
+    $sql = "
+        SELECT 
+            tasks.id,
+            tasks.title,
+            tasks.description,
+            tasks.status,
+            tasks.due_date
+        FROM 
+            users
+        INNER JOIN 
+            teams ON users.team_id = teams.id
+        INNER JOIN 
+            projects ON teams.id = projects.assigned_to
+        INNER JOIN 
+            tasks ON projects.id = tasks.assigned_to
+        WHERE 
+            users.id = ?";
 
-	if($stmt->rowCount() > 0){
-		$tasks = $stmt->fetchAll();
-	}else $tasks = 0;
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
 
-	return $tasks;
+    // Execute with the provided user ID
+    $stmt->execute([$user_id]);
+
+    // Check if any tasks were retrieved
+    if ($stmt->rowCount() > 0) {
+        $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch tasks as an associative array
+    } else {
+        $tasks = 0; // No tasks found
+    }
+
+    // Return the result
+    return $tasks;
 }
+
 
 
 
