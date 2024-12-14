@@ -29,7 +29,7 @@ CREATE TABLE tasks (
     description TEXT,
     assigned_to INT,
     status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (assigned_to) REFERENCES projects(id)
 );
 

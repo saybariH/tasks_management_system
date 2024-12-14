@@ -5,16 +5,15 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
 	 include "DB_connection.php";
     include "app/Model/Task.php";
     include "app/Model/User.php";
+	include "app/Model/Project.php";
 
 	if ($_SESSION['role'] == "admin") {
-		  $todaydue_task = count_tasks_due_today($conn);
-	     $overdue_task = count_tasks_overdue($conn);
-	     $nodeadline_task = count_tasks_NoDeadline($conn);
 	     $num_task = count_tasks($conn);
 	     $num_users = count_users($conn);
 	     $pending = count_pending_tasks($conn);
 	     $in_progress = count_in_progress_tasks($conn);
 	     $completed = count_completed_tasks($conn);
+		 $num_projects = count_projects($conn);
 	}else {
         $num_my_task = count_my_tasks($conn, $_SESSION['id']);
         $overdue_task = count_my_tasks_overdue($conn, $_SESSION['id']);
@@ -40,30 +39,19 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
 		<section class="section-1">
 			<?php if ($_SESSION['role'] == "admin") { ?>
 				<div class="dashboard">
-					<div class="dashboard-item">
+				<div class="dashboard-item">
 						<i class="fa fa-users"></i>
 						<span><?=$num_users?> Employee</span>
+					</div>
+					<div class="dashboard-item">
+						<i class="fa fa-users"></i>
+						<span><?=$num_projects?> Projects</span>
 					</div>
 					<div class="dashboard-item">
 						<i class="fa fa-tasks"></i>
 						<span><?=$num_task?> All Tasks</span>
 					</div>
-					<div class="dashboard-item">
-						<i class="fa fa-window-close-o"></i>
-						<span><?=$overdue_task?> Overdue</span>
-					</div>
-					<div class="dashboard-item">
-						<i class="fa fa-clock-o"></i>
-						<span><?=$nodeadline_task?> No Deadline</span>
-					</div>
-					<div class="dashboard-item">
-						<i class="fa fa-exclamation-triangle"></i>
-						<span><?=$todaydue_task?> Due Today</span>
-					</div>
-					<div class="dashboard-item">
-						<i class="fa fa-bell"></i>
-						<span><?=$overdue_task?> Notifications</span>
-					</div>
+
 					<div class="dashboard-item">
 						<i class="fa fa-square-o"></i>
 						<span><?=$pending?> Pending</span>

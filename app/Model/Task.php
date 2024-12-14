@@ -17,63 +17,44 @@ function get_all_tasks($conn){
 
 	return $tasks;
 }
-function get_all_tasks_due_today($conn){
-	$sql = "SELECT * FROM tasks WHERE due_date = CURDATE() AND status != 'completed' ORDER BY id DESC";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
-
-	if($stmt->rowCount() > 0){
-		$tasks = $stmt->fetchAll();
-	}else $tasks = 0;
-
-	return $tasks;
+function get_tasks_by_team($conn, $team_id) {
+    try {
+        $sql = "
+            SELECT t.*
+            FROM tasks t
+            INNER JOIN projects p ON t.assigned_to = p.id
+            INNER JOIN teams tm ON p.assigned_to = tm.id
+            WHERE tm.id = ?
+        ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$team_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return as an associative array
+    } catch (PDOException $e) {
+        error_log("Error fetching tasks by team: " . $e->getMessage());
+        return []; // Return an empty array in case of error
+    }
 }
-function count_tasks_due_today($conn){
-	$sql = "SELECT id FROM tasks WHERE due_date = CURDATE() AND status != 'completed'";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
 
-	return $stmt->rowCount();
-}
-
-function get_all_tasks_overdue($conn){
-	$sql = "SELECT * FROM tasks WHERE due_date < CURDATE() AND status != 'completed' ORDER BY id DESC";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
-
-	if($stmt->rowCount() > 0){
-		$tasks = $stmt->fetchAll();
-	}else $tasks = 0;
-
-	return $tasks;
-}
-function count_tasks_overdue($conn){
-	$sql = "SELECT id FROM tasks WHERE due_date < CURDATE() AND status != 'completed'";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
-
-	return $stmt->rowCount();
+function count_tasks_by_team($conn, $team_id) {
+    try {
+        $sql = "
+            SELECT COUNT(*) 
+            FROM tasks t
+            INNER JOIN projects p ON t.assigned_to = p.id
+            INNER JOIN teams tm ON p.assigned_to = tm.id
+            WHERE tm.id = ?
+        ";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$team_id]);
+        return (int) $stmt->fetchColumn(); // Cast result to integer
+    } catch (PDOException $e) {
+        error_log("Error counting tasks by team: " . $e->getMessage());
+        return 0; // Return 0 in case of error
+    }
 }
 
 
-function get_all_tasks_NoDeadline($conn){
-	$sql = "SELECT * FROM tasks WHERE status != 'completed' AND due_date IS NULL OR due_date = '0000-00-00' ORDER BY id DESC";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
 
-	if($stmt->rowCount() > 0){
-		$tasks = $stmt->fetchAll();
-	}else $tasks = 0;
-
-	return $tasks;
-}
-function count_tasks_NoDeadline($conn){
-	$sql = "SELECT id FROM tasks WHERE status != 'completed' AND due_date IS NULL OR due_date = '0000-00-00'";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute([]);
-
-	return $stmt->rowCount();
-}
 
 
 

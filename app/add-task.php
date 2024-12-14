@@ -26,7 +26,7 @@ if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['assi
 	    header("Location: ../create_task.php?error=$em");
 	    exit();
 	}else if ($assigned_to == 0) {
-		$em = "Select User";
+		$em = "Select a project";
 	    header("Location: ../create_task.php?error=$em");
 	    exit();
 	}else {

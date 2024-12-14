@@ -57,15 +57,21 @@
 					</a>
 				</li>
 				<li>
-					<a href="create_task.php">
-						<i class="fa fa-plus" aria-hidden="true"></i>
-						<span>Create Task</span>
+					<a href="teams.php">
+						<i class="fa fa-tasks" aria-hidden="true"></i>
+						<span>Manage Teams</span>
+					</a>
+				</li>
+				<li>
+					<a href="projects.php">
+						<i class="fa fa-tasks" aria-hidden="true"></i>
+						<span>Manage Projects</span>
 					</a>
 				</li>
 				<li>
 					<a href="tasks.php">
 						<i class="fa fa-tasks" aria-hidden="true"></i>
-						<span>All Tasks</span>
+						<span>Manage tasks</span>
 					</a>
 				</li>
 				<li>

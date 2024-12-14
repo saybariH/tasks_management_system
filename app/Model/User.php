@@ -14,16 +14,22 @@ function get_all_users($conn){
 
 
 function insert_user($conn, $data){
-	$sql = "INSERT INTO users (full_name, username, password, role) VALUES(?,?,?, ?)";
+	$sql = "INSERT INTO users (full_name, username, password, role,team_id) VALUES(?,?,?,?,?)";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute($data);
 }
 
 function update_user($conn, $data){
-	$sql = "UPDATE users SET full_name=?, username=?, password=?, role=? WHERE id=? AND role=?";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute($data);
+    // Updated query to include team_id
+    $sql = "UPDATE users SET full_name=?, username=?, password=?, role=?, team_id=? WHERE id=? AND role=?";
+    
+    // Prepare the SQL statement
+    $stmt = $conn->prepare($sql);
+    
+    // Execute the statement with the data array
+    $stmt->execute($data);
 }
+
 
 function delete_user($conn, $data){
 	$sql = "DELETE FROM users WHERE id=? AND role=?";
