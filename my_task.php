@@ -28,7 +28,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     <link rel="stylesheet" href="css/style.css">
     <style>
         .task-card {
-            background-color: white;
+            background-color: #8587da3d;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             width: 300px;
@@ -159,7 +159,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 </head>
 <body>
     <input type="checkbox" id="checkbox">
-    <?php include "inc/header.php" ?>
     <div class="body">
         <?php include "inc/nav.php" ?>
         <section class="section-1">

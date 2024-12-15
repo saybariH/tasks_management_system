@@ -28,7 +28,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) && $_SESSION['role'] == "
 </head>
 <body>
 	<input type="checkbox" id="checkbox">
-	<?php include "inc/header.php" ?>
 	<div class="body">
 		<?php include "inc/nav.php" ?>
 		<section class="section-1">

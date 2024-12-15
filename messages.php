@@ -37,10 +37,10 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     // Fetch team_id for the logged-in user
     $team = get_team_by_user($conn, $_SESSION['id']);
     
-    // Check if the user belongs to a team
-    if (!$team) {
-        $error_message = "You are not part of any team.";
-        header("Location: chat.php?error=" . urlencode($error_message));
+    // Check if the user has a team
+    if (!$team['team_id']) {
+        $error_message = "No team associated with this user.";
+        header("Location: messages.php?error=" . urlencode($error_message));
         exit();
     }
 
@@ -50,7 +50,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     // Check if the team has a conversation
     if (!$conversation) {
         $error_message = "No conversation found for your team.";
-        header("Location: chat.php?error=" . urlencode($error_message));
+        header("Location: messages.php?error=" . urlencode($error_message));
         exit();
     }
 
@@ -71,12 +71,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9fafb;
-            margin: 0;
-            padding: 0;
-        }
 
         .chat-container {
             width: 90%;
@@ -86,7 +80,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         }
 
         .chat-header {
-            background-color: #4CAF50;
+            background-color:  #4723D9;
             color: white;
             padding: 15px;
             text-align: center;
@@ -110,7 +104,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         }
 
         .own-message {
-            background-color: #d1f0c1;
+            background-color: #AFA5D9;
             text-align: right;
         }
 
@@ -145,7 +139,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         }
 
         .chat-input button {
-            background-color: #4CAF50;
+            background-color:  #4723D9;
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
@@ -154,7 +148,7 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
         }
 
         .chat-input button:hover {
-            background-color: #45a049;
+            background-color:  #4723D9;
         }
 
         /* Responsive Styles */
@@ -175,7 +169,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 </head>
 <body>
     <input type="checkbox" id="checkbox">
-    <?php include "inc/header.php"; ?>
     <div class="body">
         <?php include "inc/nav.php"; ?>
 
@@ -201,10 +194,12 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             </div>
 
             <div class="chat-input">
-                <form action="app/send_message.php" method="POST">
-                    <input type="text" name="message" placeholder="Type your message..." required>
-                    <button type="submit">Send</button>
-                </form>
+            <form action="app/send_message.php" method="POST">
+    <textarea name="message" required></textarea>
+    <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>" />
+    <button type="submit">Send Message</button>
+</form>
+
             </div>
         </div>
     </div>
