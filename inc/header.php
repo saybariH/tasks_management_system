@@ -4,10 +4,10 @@
 			<i id="navbtn" class="fa fa-bars" aria-hidden="true"></i>
 		</label>
 	</h2>
-	<span class="notification" id="notificationBtn">
+	<!-- <span class="notification" id="notificationBtn">
 		<i class="fa fa-bell" aria-hidden="true"></i>
 		<span id="notificationNum"></span>
-	</span>
+	</span> -->
 </header>
 <div class="notification-bar" id="notificationBar">
 	<ul id="notifications">
