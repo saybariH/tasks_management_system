@@ -96,12 +96,13 @@
 
 
 .side-bar ul {
-	margin-top: 20px;
+	margin-top: 30px;
+	margin-bottom: 80px;
 	list-style: none;
 }
 .side-bar ul li {
 	font-size: 16px;
-	padding: 15px 0px;
+	padding: 25px 0px;
 	padding-left: 20px;
 	transition: 500ms background;
 	white-space: nowrap;
@@ -131,6 +132,11 @@
 	display: inline-block;
 	padding-right: 10px;
 	font-size: 23px;
+}
+.side-bar hr {
+
+	padding-right: 10px;
+	color: red;
 }
 #navbtn {
 	display: inline-block;
@@ -213,7 +219,7 @@
 
 .section-1 {
 	width: 100%;
-	background: #ffe;
+	background: #fffffe;
 }
 .section-1 .title a:hover{
 	opacity: .6;
@@ -324,3 +330,4 @@
 	display: block;
     color: #fff;
 }
+
