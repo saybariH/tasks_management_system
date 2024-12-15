@@ -133,11 +133,7 @@
 	padding-right: 10px;
 	font-size: 23px;
 }
-.side-bar hr {
 
-	padding-right: 10px;
-	color: red;
-}
 #navbtn {
 	display: inline-block;
 	margin-left: 70px;
@@ -226,7 +222,7 @@
 }
 
 .main-table, .main-table tr, .main-table th, .main-table td {
-  border: 1px solid #aaa;
+  border: 1px solid #5a000055;
   border-collapse: collapse;
   padding: 7px;
 }
@@ -308,15 +304,17 @@
 }
 .dashboard {
 	display: flex;
-	max-width: 650px;
+	max-width: 950px;
 	width: 95%;
+	margin-left: 12%;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 .dashboard-item {
     text-align: center;
-    background: #262931;
-    width: 200px;
+    background: #8586daa4;
+    width: 300px;
+	border-radius: 6px;
     padding: 30px 5px;
     margin-bottom: 40px;
 }
