@@ -134,6 +134,32 @@ if (isset($_SESSION['role']) && isset($_SESSION['id']) ) {
                 width: 90%;
             }
         }
+        .dashboard {
+	display: flex;
+	max-width: 950px;
+	width: 95%;
+	margin-left: 20%;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.dashboard-item {
+    text-align: center;
+    background: #8586daa4;
+    width: 300px;
+	border-radius: 6px;
+    padding: 30px 5px;
+    margin-bottom: 40px;
+}
+.dashboard-item i{
+	display: block;
+    color: #fff;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+.dashboard-item span{
+	display: block;
+    color: #fff;
+}
     </style>
 </head>
 <body>

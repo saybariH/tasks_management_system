@@ -49,16 +49,14 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     
     // Check if the team has a conversation
     if (!$conversation) {
-        $error_message = "No conversation found for your team.";
-        header("Location: messages.php?error=" . urlencode($error_message));
-        exit();
+        // No conversation found for the team, so set the flag for no messages
+        $no_conversation = true;
+        $messages = [];
+    } else {
+        // Fetch messages for the conversation
+        $messages = get_messages_by_conversation($conn, $conversation['id']);
     }
 
-    // Fetch messages for the conversation
-    $messages = get_messages_by_conversation($conn, $conversation['id']);
-    if (empty($messages)) {
-        $no_messages_error = "No messages in this conversation yet.";
-    }
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +69,6 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* General Styles */
-
         .chat-container {
             width: 90%;
             max-width: 900px;
@@ -178,8 +175,10 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             </div>
 
             <div class="messages-container">
-                <?php if (isset($no_messages_error)) { ?>
-                    <div class="error"><?= htmlspecialchars($no_messages_error); ?></div>
+                <?php if (isset($no_conversation) && $no_conversation) { ?>
+                    <div class="error">No conversation found for your team yet.</div>
+                <?php } elseif (empty($messages)) { ?>
+                    <div class="error">No messages in this conversation yet.</div>
                 <?php } else { ?>
                     <?php foreach ($messages as $message) { ?>
                         <div class="message <?php echo ($_SESSION['id'] == $message['sender_id']) ? 'own-message' : ''; ?>">
@@ -194,12 +193,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
             </div>
 
             <div class="chat-input">
-            <form action="app/send_message.php" method="POST">
-    <textarea name="message" required></textarea>
-    <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>" />
-    <button type="submit">Send Message</button>
-</form>
-
+                <form action="app/send_message.php" method="POST">
+                    <textarea name="message" required></textarea>
+                    <input type="hidden" name="team_id" value="<?php echo $team['team_id']; ?>" />
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </div>
     </div>

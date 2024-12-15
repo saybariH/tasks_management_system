@@ -78,7 +78,8 @@ if($_SESSION['role'] == "employee"){
 					<a href="user.php" class="nav_link"> <i class="fa fa-user-plus" aria-hidden="true"></i> <span class="nav_name">Manage Users</span> </a> 
 					<a href="teams.php" class="nav_link"> <i class="fa fa-users" aria-hidden="true"></i> <span class="nav_name">Manage Teams</span> </a> 
 					<a href="projects.php" class="nav_link"> <i class="fa fa-briefcase" aria-hidden="true"></i> <span class="nav_name">Manage Project</span> </a> 
-					<a href="logout.php" class="nav_link"> <i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span> </a> </div>
+					<a href="tasks.php" class="nav_link"> <i class="fa fa-briefcase" aria-hidden="true"></i> <span class="nav_name">Manage tasks</span> </a> 
+                    <a href="logout.php" class="nav_link"> <i class="fa fa-sign-out" aria-hidden="true"></i><span>Logout</span> </a> </div>
             </div> 
 			
         </nav>
