@@ -12,6 +12,17 @@ function get_all_users($conn){
 	return $users;
 }
 
+function get_user_team($conn, $user_id) {
+    $sql = "SELECT t.id AS team_id, t.label AS team_name
+            FROM teams t
+            JOIN users u ON u.team_id = t.id
+            WHERE u.id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$user_id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
 
 function insert_user($conn, $data){
 	$sql = "INSERT INTO users (full_name, username, password, role,team_id) VALUES(?,?,?,?,?)";

@@ -90,10 +90,11 @@ function update_task($conn, $data){
 	$stmt->execute($data);
 }
 
-function update_task_status($conn, $data){
-	$sql = "UPDATE tasks SET status=? WHERE id=?";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute($data);
+
+function update_task_status($conn, $task_id, $status) {
+    $sql = "UPDATE tasks SET status = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    return $stmt->execute([$status, $task_id]);
 }
 
 
@@ -209,3 +210,4 @@ function count_my_completed_tasks($conn, $id){
 
 	return $stmt->rowCount();
 }
+

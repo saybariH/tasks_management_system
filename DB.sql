@@ -14,6 +14,22 @@ CREATE TABLE users (
     team_id INT,
     FOREIGN KEY (team_id) REFERENCES teams(id) 
 );
+CREATE TABLE conversations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_id INT DEFAULT NULL, -- Link to a team (if team-based conversation)
+    FOREIGN KEY (team_id) REFERENCES teams(id)
+);
+
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT NOT NULL, -- Links to the conversation
+    sender_id INT NOT NULL, -- The user who sent the message
+    content TEXT NOT NULL, -- The message text/content
+    message_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- When the message was sent
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id),
+    FOREIGN KEY (sender_id) REFERENCES users(id)
+);
+
 
 CREATE TABLE projects (
     id INT AUTO_INCREMENT PRIMARY KEY,

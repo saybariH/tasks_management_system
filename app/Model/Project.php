@@ -131,4 +131,61 @@ function delete_project($conn, $data) {
         $stmt->execute();
         return $stmt->fetchColumn();
     }
+// Query to get all projects assigned to the employee's team
+// Query to get all projects assigned to the employee's team
+function get_all_projects_by_user($conn, $user_id) {
+    // PDO query with a placeholder for the user_id
+    $sql = "SELECT p.id, p.title, p.description 
+            FROM projects p
+            JOIN users u ON u.team_id = p.assigned_to
+            WHERE u.id = :user_id";
+    
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
+    
+    // Bind the user_id to the placeholder
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Fetch all results
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+// Get all projects assigned to the user (based on the user's team)
+function get_projects_by_user($conn, $user_id) {
+    $sql = "SELECT p.id, p.title 
+            FROM projects p
+            JOIN users u ON u.team_id = p.assigned_to
+            WHERE u.id = :user_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Query to get up to 3 tasks for a specific project// Query to get up to 3 tasks for a specific project
+function get_tasks_by_project_id($conn, $project_id, $limit = 3) {
+    // PDO query with a placeholder for project_id
+    $sql = "SELECT t.id, t.title, t.status 
+            FROM tasks t
+            WHERE t.assigned_to = :project_id
+            LIMIT :limit";
+    
+    // Prepare the statement
+    $stmt = $conn->prepare($sql);
+    
+    // Bind the project_id and limit to the placeholders
+    $stmt->bindParam(':project_id', $project_id, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    
+    // Execute the statement
+    $stmt->execute();
+    
+    // Fetch all results
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+        
 ?>

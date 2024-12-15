@@ -13,7 +13,7 @@
 				<li>
 					<a href="index.php">
 						<i class="fa fa-tachometer" aria-hidden="true"></i>
-						<span>Dashboard</span>
+						<span>Projects</span>
 					</a>
 				</li>
 				<li>
