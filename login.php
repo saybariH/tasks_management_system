@@ -107,6 +107,13 @@ a.text-primary:hover {
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-lg">Log In</button>
                 </div>
+                <?php 
+
+// $pass = "123";
+// $pass = password_hash($pass, PASSWORD_DEFAULT);
+// echo $pass;
+
+?>
             </form>
             <div class="text-center mt-4">
                 <p class="mb-2 text-muted">— or login with —</p>

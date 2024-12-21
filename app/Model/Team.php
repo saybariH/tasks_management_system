@@ -121,6 +121,18 @@ function create_team($conn, $team_name) {
     $stmt = $conn->prepare($sql);
     return $stmt->execute([$team_name]);
 }
+function get_team_by_id($conn, $id) {
+    $sql = "SELECT * FROM teams WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// function update_team($conn, $id, $label) {
+//     $sql = "UPDATE teams SET label = ? WHERE id = ?";
+//     $stmt = $conn->prepare($sql);
+//     return $stmt->execute([$label, $id]);
+// }
 
 ?>
 
